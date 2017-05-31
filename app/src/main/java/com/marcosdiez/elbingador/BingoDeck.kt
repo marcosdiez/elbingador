@@ -1,4 +1,4 @@
-package com.marcosdiez.bingador.elbingador
+package com.marcosdiez.elbingador
 
 import java.util.*
 import kotlin.collections.HashSet

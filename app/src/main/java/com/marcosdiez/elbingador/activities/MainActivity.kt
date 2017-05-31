@@ -1,8 +1,8 @@
-package com.marcosdiez.bingador.elbingador.activities
+package com.marcosdiez.elbingador.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.marcosdiez.bingador.elbingador.R
+import com.marcosdiez.elbingador.R
 
 class MainActivity : AppCompatActivity() {
 

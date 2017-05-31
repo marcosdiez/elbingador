@@ -1,4 +1,4 @@
-package com.marcosdiez.bingador.elbingador;
+package com.marcosdiez.elbingador;
 
 /**
  * Created by Marcos on 2017-05-30.

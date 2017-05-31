@@ -1,4 +1,4 @@
-package com.marcosdiez.bingador.elbingador
+package com.marcosdiez.elbingador
 
 import org.junit.Assert.*
 import org.junit.Test

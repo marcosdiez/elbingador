@@ -1,4 +1,4 @@
-package com.marcosdiez.bingador.elbingador;
+package com.marcosdiez.elbingador;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.marcosdiez.bingador.elbingador", appContext.getPackageName());
+        assertEquals("com.marcosdiez.elbingador", appContext.getPackageName());
     }
 }
