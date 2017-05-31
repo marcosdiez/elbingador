@@ -3,35 +3,41 @@ package com.marcosdiez.elbingador
 /**
  * Created by Marcos on 2017-05-30.
  */
-class BingoCard constructor(val size: Int, var name: String){
+class BingoCard constructor(val size: Int, var name: String) : java.io.Serializable , Comparable<BingoCard> {
     val content = array2dOfInt(size, size)
     val hits = array2dOfBoolean(size, size)
     var numHits = 0
 
-    fun hit(number: Int){
+    fun hit(number: Int) : Int{
+        var localHits = 0
         for(row in 0 until size) {
             for (column in 0 until size) {
                 if(content[row][column] == number){
                     if(!hits[row][column]){
                         hits[row][column] = true
                         numHits++
+                        localHits++
                     }
                 }
             }
         }
+        return localHits
     }
 
-    fun unhit(number: Int){
+    fun unhit(number: Int) : Int {
+        var localHits = 0
         for(row in 0 until size) {
             for (column in 0 until size) {
                 if(content[row][column] == number){
                     if(hits[row][column]){
                         hits[row][column] = false
                         numHits--
+                        localHits++
                     }
                 }
             }
         }
+        return localHits
     }
 
     fun hasWinningRow() : Boolean {
@@ -109,8 +115,6 @@ class BingoCard constructor(val size: Int, var name: String){
         return hasWinningRow() || hasWinningColumn() || hasWinningFirstDiagonal() || hasWinningSecondDiagonal() || hasWinningFullCard()
     }
 
-
-
     fun print(){
         val formaHit = "[%2d] "
         val formaNotHit = " %2d  "
@@ -126,24 +130,26 @@ class BingoCard constructor(val size: Int, var name: String){
         System.out.println()
     }
 
+    override fun compareTo(compareBingoCard : BingoCard) : Int {
+        return this.name.compareTo(compareBingoCard.name)
+    }
 
-
-    public inline fun <reified INNER> array2d(sizeOuter: Int, sizeInner: Int, noinline innerInit: (Int)->INNER): Array<Array<INNER>>
+    private inline fun <reified INNER> array2d(sizeOuter: Int, sizeInner: Int, noinline innerInit: (Int)->INNER): Array<Array<INNER>>
             = Array(sizeOuter) { Array<INNER>(sizeInner, innerInit) }
 
-    public fun array2dOfInt(sizeOuter: Int, sizeInner: Int): Array<IntArray>
+    private fun array2dOfInt(sizeOuter: Int, sizeInner: Int): Array<IntArray>
             = Array(sizeOuter) { IntArray(sizeInner) }
 
-    public fun array2dOfLong(sizeOuter: Int, sizeInner: Int): Array<LongArray>
+    private fun array2dOfLong(sizeOuter: Int, sizeInner: Int): Array<LongArray>
             = Array(sizeOuter) { LongArray(sizeInner) }
 
-    public fun array2dOfByte(sizeOuter: Int, sizeInner: Int): Array<ByteArray>
+    private fun array2dOfByte(sizeOuter: Int, sizeInner: Int): Array<ByteArray>
             = Array(sizeOuter) { ByteArray(sizeInner) }
 
-    public fun array2dOfChar(sizeOuter: Int, sizeInner: Int): Array<CharArray>
+    private fun array2dOfChar(sizeOuter: Int, sizeInner: Int): Array<CharArray>
             = Array(sizeOuter) { CharArray(sizeInner) }
 
-    public fun array2dOfBoolean(sizeOuter: Int, sizeInner: Int): Array<BooleanArray>
+    private fun array2dOfBoolean(sizeOuter: Int, sizeInner: Int): Array<BooleanArray>
             = Array(sizeOuter) { BooleanArray(sizeInner) }
 
 
