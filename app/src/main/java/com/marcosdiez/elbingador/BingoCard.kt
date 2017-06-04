@@ -3,10 +3,21 @@ package com.marcosdiez.elbingador
 /**
  * Created by Marcos on 2017-05-30.
  */
-class BingoCard constructor(val size: Int, var name: String) : java.io.Serializable , Comparable<BingoCard> {
+class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
+    val size = 5
+    var name = "Anonymous"
     val content = array2dOfInt(size, size)
     val hits = array2dOfBoolean(size, size)
     var numHits = 0
+
+    init {
+        for(row in 0 until size){
+            for(column in 0 until size){
+                content[row][column] = -1
+            }
+        }
+    }
+
 
     fun hit(number: Int) : Int{
         var localHits = 0

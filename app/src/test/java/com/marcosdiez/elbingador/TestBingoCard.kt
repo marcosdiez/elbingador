@@ -24,7 +24,7 @@ class TestBingoCard {
             [49]  32   20   92   96
              39  [10]  63   86   58
          */
-            val bingoCard = BingoCard(5, "Cartela 42")
+            val bingoCard = BingoCard()
 
             bingoCard.content[0][0] = 78
             bingoCard.content[0][1] = 98   // this appears twice
