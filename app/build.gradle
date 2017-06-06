@@ -17,6 +17,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        applicationVariants.all { variant ->
+            // rename APKs to something useful
+            def apkPath = variant.outputs[0].outputFile.parentFile
+
+            def baseName = variant.mergedFlavor.applicationId
+            baseName += "-${variant.mergedFlavor.versionName}"
+            baseName += "-${variant.buildType.name}"
+
+            variant.outputs[0].outputFile = new File(apkPath, "${baseName}.apk");
+        }
     }
 }
 
@@ -30,16 +41,11 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
 
-//    compile "com.jakewharton:butterknife:$butterknife_version"
-//    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
-//    annotationProcessor  "com.jakewharton:butterknife-compiler:$butterknife_version"
     testCompile 'junit:junit:4.12'
 }
+
 repositories {
     mavenCentral()
 }
-//ButterKnife For Kotlin
-//kapt {
-//    generateStubs = true
-//}
+
 apply plugin: 'kotlin-android-extensions'

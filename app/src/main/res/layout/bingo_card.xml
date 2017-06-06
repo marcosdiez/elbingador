@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
-            android:hint="Nome ou Número da Cartela"
+            android:hint="@string/nome_ou_n_mero_da_cartela"
             android:inputType="textPersonName"
             android:nextFocusDown="@+id/number00"
-            android:text="Bingo Card Name"
+            android:text="@string/bingo_card_name"
             android:textAlignment="center"/>
 
         <Button
@@ -59,7 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="B"
+                android:text="@string/b"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/holo_red_light"/>
@@ -69,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="I"
+                android:text="@string/i"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/holo_red_light"/>
@@ -79,7 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="N"
+
+                android:text="@string/n"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/holo_red_light"/>
@@ -89,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="G"
+                android:text="@string/g"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/holo_red_light"/>
@@ -99,7 +100,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="O"
+                android:text="@string/o"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/holo_red_light"/>
@@ -120,7 +121,7 @@
                 android:maxLength="2"
                 android:nextFocusDown="@+id/number01"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number01"
@@ -423,34 +424,63 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_clear_cells"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Limpar Cartela"/>
 
         <Button
             android:id="@+id/button_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nova Cartela"/>
+            android:text="@string/nova_cartela"
+            android:textAllCaps="false"/>
 
         <Button
-            android:id="@+id/button_play"
+            android:id="@+id/button_fill_random"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Jogar"/>
+            android:elevation="0dp"
+            android:text="@string/random"
+            android:textAllCaps="false"/>
 
+        <Button
+            android:id="@+id/button_play"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/jogar"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_clear_cells"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/limpar_cartela"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/button_erase_all_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Apagar Tudo"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/text_view_status"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         tools:text="Card 10 of 256"
         />

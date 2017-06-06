@@ -27,34 +27,121 @@ class TestBingoDeck {
 [49]  32   20   92   96
  39  [10]  63   86   58
 */
-    fun prepareDeck() : BingoDeck {
+    fun prepareSmallDeck() : BingoDeck {
         val bingoCard = TestBingoCard.getBingoCard()
         val bingoDeck = BingoDeck()
 
         bingoDeck.addBingoCard(bingoCard)
+
+      //  return serializeAndDeSerialize(bingoDeck)
+        bingoDeck.recalculateNumberMap()
         return bingoDeck
     }
 
+    fun prepareBigDeck() : BingoDeck {
+        val bingoDeck = BingoDeck()
+        var counter = 0
+        for(numDeck in 1 until 11){
+            var bingoCard = BingoCard()
+            bingoCard.name = String.format("BingoDeck x%03d", numDeck)
+            for(row in 0 until bingoCard.content.size){
+                for(column in 0 until bingoCard.content[row].size) {
+                    bingoCard.content[row][column] = (counter++ % 99) + 1
+                }
+            }
+            bingoDeck.addBingoCard(bingoCard)
+        }
+        bingoDeck.recalculateNumberMap()
+        return bingoDeck
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testDeckWithManyCards() {
+        val bingoDeck = prepareBigDeck()
+        bingoDeck.hit(12)
+        bingoDeck.hit(7)
+        bingoDeck.hit(22)
+        bingoDeck.hit(17)
+        bingoDeck.hit(15)
+        bingoDeck.hit(27)
+        bingoDeck.hit(2)
+        System.out.println(bingoDeck)
+    }
+
+        @Test
+    @Throws(Exception::class)
+    fun testDumpState() {
+        val bingoDeck = prepareSmallDeck()
+        bingoDeck.hit(10)
+        bingoDeck.hit(20)
+        bingoDeck.hit(30)
+        bingoDeck.hit(40)
+        bingoDeck.hit(50)
+        bingoDeck.hit(60)
+        bingoDeck.hit(70)
+        System.out.println(bingoDeck.winningCardsToString())
+
+        bingoDeck.hit(39)
+        bingoDeck.hit(10)
+        bingoDeck.hit(63)
+        bingoDeck.hit(86)
+        bingoDeck.hit(58)
+
+        System.out.println(bingoDeck.winningCardsToString())
+
+
+    }
 
     @Test
     @Throws(Exception::class)
     fun testHitAndUnHit() {
-        val bingoDeck = prepareDeck()
+        val bingoDeck = prepareSmallDeck()
 
-        Assert.assertEquals(0, bingoDeck.hit(5))
-        Assert.assertEquals(1, bingoDeck.hit(99))
-        Assert.assertEquals(2, bingoDeck.hit(98))
+        testHitHelper(bingoDeck, initialSize=0, hits=0, number=5)
+        testHitHelper(bingoDeck, initialSize=1, hits=1, number=99)
+        testHitHelper(bingoDeck, initialSize=2, hits=2, number=98)
 
-        Assert.assertEquals(0, bingoDeck.unhit(5))
-        Assert.assertEquals(1, bingoDeck.unhit(99))
-        Assert.assertEquals(2, bingoDeck.unhit(98))
+        testUnHitHelper(bingoDeck, initialSize=3, hits=0, number=5)
+        testUnHitHelper(bingoDeck, initialSize=2, hits=1, number=99)
+        testUnHitHelper(bingoDeck, initialSize=1, hits=2, number=98)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testHitAndUnHitBigDeck() {
+        val bingoDeck = prepareBigDeck()
+
+
+        testHitHelper(bingoDeck, initialSize=0, hits=3, number=5)
+        testHitHelper(bingoDeck, initialSize=1, hits=2, number=99)
+        testHitHelper(bingoDeck, initialSize=2, hits=2, number=98)
+
+        testUnHitHelper(bingoDeck, initialSize=3, hits=3, number=5)
+        testUnHitHelper(bingoDeck, initialSize=2, hits=2, number=99)
+        testUnHitHelper(bingoDeck, initialSize=1, hits=2, number=98)
+    }
+
+
+    private fun testHitHelper(bingoDeck: BingoDeck, initialSize: Int, hits: Int, number: Int) {
+        Assert.assertEquals(initialSize, bingoDeck.numbers.size)
+        Assert.assertEquals(hits, bingoDeck.hit(number))
+        Assert.assertEquals(initialSize + 1, bingoDeck.numbers.size)
+        Assert.assertTrue(bingoDeck.numbers.contains(number))
+    }
+
+    private fun testUnHitHelper(bingoDeck: BingoDeck, initialSize: Int, hits: Int, number: Int) {
+        Assert.assertEquals(initialSize, bingoDeck.numbers.size)
+        Assert.assertEquals(hits, bingoDeck.unhit(number))
+        Assert.assertEquals(initialSize - 1, bingoDeck.numbers.size)
+        Assert.assertTrue(!bingoDeck.numbers.contains(number))
     }
 
 
     @Test
     @Throws(Exception::class)
     fun testWinninDectection() {
-        val bingoDeck = prepareDeck()
+        val bingoDeck = prepareSmallDeck()
 
         Assert.assertEquals(0, bingoDeck.hit(5))
         Assert.assertEquals(0, bingoDeck.winningBingoDeck.size)
@@ -95,21 +182,26 @@ class TestBingoDeck {
     @Test
     @Throws(Exception::class)
     fun testSerialize() {
-        val bingoDeck = prepareDeck()
+        val bingoDeck = prepareSmallDeck()
 
+        val serializedBingoDeck = serializeAndDeSerialize(bingoDeck)
+        Assert.assertEquals(bingoDeck.getNumbersFromMyBingoCards().size, 24)
+        Assert.assertEquals(bingoDeck.getNumbersFromMyBingoCards().size, serializedBingoDeck.getNumbersFromMyBingoCards().size)
+    }
+
+    private fun serializeAndDeSerialize(originalBingoDeck: BingoDeck): BingoDeck {
         val bos = ByteArrayOutputStream()
-        val out = ObjectOutputStream(bos)
-        out.writeObject(bingoDeck)
-        out.flush()
+        val objectOutputStream = ObjectOutputStream(bos)
+        objectOutputStream.writeObject(originalBingoDeck)
+        objectOutputStream.flush()
         val serializedObject = bos.toByteArray()
         bos.close()
 
 
         val bis = ByteArrayInputStream(serializedObject)
-        val zin = ObjectInputStream(bis)
-        val serializedBingoDeck = zin.readObject() as BingoDeck
-        zin.close()
-
-        Assert.assertEquals(bingoDeck.getHits().size, serializedBingoDeck.getHits().size)
+        val objectInputStream = ObjectInputStream(bis)
+        val serializedBingoDeck = objectInputStream.readObject() as BingoDeck
+        objectInputStream.close()
+        return serializedBingoDeck
     }
 }

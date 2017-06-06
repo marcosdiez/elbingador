@@ -10,37 +10,45 @@ import kotlin.collections.HashSet
 class BingoDeck : java.io.Serializable {
     val bingoDeck = ArrayList<BingoCard>()
     val winningBingoDeck = ArrayList<BingoCard>()
-    private var numberMap = HashMap<Int, HashSet<BingoCard>>()
+    private val numberMap = HashMap<Int, HashSet<BingoCard>>()
+    val numbers = TreeSet<Int>()
 
     fun addBingoCard(bingoCard: BingoCard) {
         bingoDeck.add(bingoCard)
         bingoDeck.sort()
+    }
 
-        for (row in 0 until bingoCard.size) {
-            for (column in 0 until bingoCard.size) {
-                val n = bingoCard.content[row][column]
+    fun recalculateNumberMap() {
+        numberMap.clear()
+        for (bingoCard in bingoDeck) {
+            for (row in 0 until bingoCard.size) {
+                for (column in 0 until bingoCard.size) {
+                    val n = bingoCard.content[row][column]
 
-                if (!numberMap.containsKey(n)) {
-                    numberMap[n] = HashSet<BingoCard>()
-                }
+                    if (!numberMap.containsKey(n)) {
+                        numberMap[n] = HashSet<BingoCard>()
+                    }
 
-                val theSet = numberMap[n]
-                if (theSet != null) {  // both me and you know it's not null. Kotlin does not, though
-                    if (!theSet.contains(bingoCard)) {
-                        theSet.add(bingoCard)
+                    val theSet = numberMap[n]
+                    if (theSet != null) {  // both me and you know it's not null. Kotlin does not, though
+                        if (!theSet.contains(bingoCard)) {
+                            theSet.add(bingoCard)
+                        }
                     }
                 }
             }
         }
     }
 
-
-
-    fun getHits() : Collection<Int> {
+    fun getNumbersFromMyBingoCards() : Collection<Int> {
         return numberMap.keys
     }
 
     fun hit(number: Int): Int {
+        if(numbers.contains(number)){
+            return 0
+        }
+        numbers.add(number)
         if (!numberMap.containsKey(number)) {
             return 0
         }
@@ -64,10 +72,13 @@ class BingoDeck : java.io.Serializable {
     }
 
     fun unhit(number: Int): Int {
+        if(!numbers.contains(number)){
+            return 0
+        }
+        numbers.remove(number)
         if (!numberMap.containsKey(number)) {
             return 0
         }
-
         var hits = 0
         val cardsWithThisNumber = numberMap[number]
         if (cardsWithThisNumber != null) {
@@ -80,4 +91,37 @@ class BingoDeck : java.io.Serializable {
         }
         return hits
     }
+
+    override fun toString() : String {
+        val output = StringBuilder(500 * bingoDeck.size)
+        output.appendln(String.format("Total: %d cartelas", bingoDeck.size))
+        output.appendln(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
+        output.append("Números de todas as minhas cartelas: ")
+        output.appendln(getNumbersFromMyBingoCards().toSortedSet())
+        output.append("Números já sorteados:" )
+        output.appendln(numbers.toString())
+        output.appendln()
+        for(bingoCard in bingoDeck){
+            output.appendln(bingoCard)
+        }
+        output.appendln("-- FIM --")
+        return output.toString()
+    }
+
+    fun winningCardsToString() : String {
+        val output = StringBuilder(500 * bingoDeck.size)
+        output.appendln(String.format("Total: %d cartelas", bingoDeck.size))
+        output.appendln(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
+        output.append("Números já sorteados:" )
+        output.appendln(numbers.toString())
+        output.appendln()
+        for(bingoCard in bingoDeck){
+            if(bingoCard.hasWinningAnything()){
+                output.appendln(bingoCard)
+            }
+        }
+        output.appendln("-- FIM --")
+        return output.toString()
+    }
+
 }

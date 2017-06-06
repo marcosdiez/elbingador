@@ -18,7 +18,6 @@ class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
         }
     }
 
-
     fun hit(number: Int) : Int{
         var localHits = 0
         for(row in 0 until size) {
@@ -126,19 +125,38 @@ class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
         return hasWinningRow() || hasWinningColumn() || hasWinningFirstDiagonal() || hasWinningSecondDiagonal() || hasWinningFullCard()
     }
 
-    fun print(){
+    override fun toString(): String {
+        val output = StringBuilder(500)
+
         val formaHit = "[%2d] "
         val formaNotHit = " %2d  "
+        output.appendln("-----------------------")
+        output.appendln(name)
+        if(hasWinningRow()){
+            output.appendln("Bingo na LINHA!!!")
+        }
+        if(hasWinningColumn()){
+            output.appendln("Bingo na Coluna !!!")
+        }
+        if(hasWinningFirstDiagonal()){
+            output.appendln("Bingo na primeira diagonal!!!")
+        }
+        if(hasWinningSecondDiagonal()){
+            output.appendln("Bingo na segunda diagonal!!!")
+        }
+        if(hasWinningFullCard()){
+            output.appendln("Bingo na cartela completa!!!")
+        }
 
-        System.out.println(name)
         for(row in 0 until size){
             for(column in 0 until size){
                 val forma = if (hits[row][column]) formaHit else formaNotHit
-                System.out.print(String.format(forma, content[row][column]))
+                output.append(String.format(forma, content[row][column]))
             }
-            System.out.println()
+            output.appendln()
         }
-        System.out.println()
+        output.appendln("=======================")
+        return output.toString()
     }
 
     override fun compareTo(compareBingoCard : BingoCard) : Int {

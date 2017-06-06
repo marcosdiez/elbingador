@@ -27,7 +27,7 @@ class TestBingoCard {
             val bingoCard = BingoCard()
 
             bingoCard.content[0][0] = 78
-            bingoCard.content[0][1] = 98   // this appears twice
+            bingoCard.content[0][1] = 98   // this appears twice, by design
             bingoCard.content[0][2] = 76
             bingoCard.content[0][3] = 44
             bingoCard.content[0][4] = 73
@@ -74,7 +74,7 @@ class TestBingoCard {
         bingoCard.hits[4][1] = true
         bingoCard.hits[3][0] = true
 
-        bingoCard.print()
+        System.out.print(bingoCard)
         assertFalse(bingoCard.hasWinningAnything())
     }
 

@@ -3,4 +3,15 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="next">&gt;&gt;</string>
     <string name="back">&lt;&lt;</string>
+    <string name="b">B</string>
+    <string name="bingo_card_name">Bingo Card Name</string>
+    <string name="g">G</string>
+    <string name="i">I</string>
+    <string name="jogar">Jogar</string>
+    <string name="limpar_cartela">Limpar Cartela</string>
+    <string name="n">N</string>
+    <string name="nome_ou_n_mero_da_cartela">Nome ou Número da Cartela</string>
+    <string name="nova_cartela">Nova Cartela</string>
+    <string name="o">O</string>
+    <string name="random">Preencher Aleatório</string>
 </resources>

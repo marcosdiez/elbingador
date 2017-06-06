@@ -2,30 +2,48 @@
 
 <LinearLayout android:id="@+id/linearLayout"
               xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              xmlns:tools="http://schemas.android.com/tools">
+              android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Números já sorteados"/>
-
-    <TextView
-        android:id="@+id/displayed_numbers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        tools:text="10\n20\n30\n40"
-        />
-    <LinearLayout android:id="@+id/linearLayout2"
+    <LinearLayout android:id="@+id/linearLayout5"
                   xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  xmlns:tools="http://schemas.android.com/tools">
+                  android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Último Número:"/>
+
+        <TextView
+            android:id="@+id/last_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_marginRight="@dimen/fab_margin"
+            tools:text="42"/>
+
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_show_only_winning_bingocards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:duplicateParentState="true"
+        android:text="Mostrar Apenas Cartelas Com Vitórias"/>
+
+    <LinearLayout android:id="@+id/linearLayout2"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_remove_number"
@@ -40,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="2"/>
 
         <Button
             android:id="@+id/button_add_number"
@@ -49,11 +68,21 @@
             android:layout_weight="1"
             android:text="Adicionar"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/results"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        tools:text="[Results]"
-        />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text=""
+            tools:text="[Results]"/>
+
+
+    </ScrollView>
+
+
 </LinearLayout>
