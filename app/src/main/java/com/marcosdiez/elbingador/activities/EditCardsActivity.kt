@@ -1,6 +1,7 @@
 package com.marcosdiez.elbingador.activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,7 +20,9 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 
 
-class Main2Activity : AppCompatActivity() {
+
+
+class EditCardsActivity : AppCompatActivity() {
 
     private lateinit var numberSet: Set<EditText>
     private lateinit var numberMatrix: ArrayList<ArrayList<EditText>>
@@ -27,7 +30,8 @@ class Main2Activity : AppCompatActivity() {
     private val FILENAME = "data.raw"
 
     private lateinit var bingoDeck: BingoDeck
-    private lateinit var bingoCardbeingDisplayed: BingoCard
+    private lateinit var bingoCardBeingDisplayed: BingoCard
+    private var bingoDeckDisplayedIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,34 +50,65 @@ class Main2Activity : AppCompatActivity() {
         }
 
         button_new.setOnClickListener {
-            bingoCardbeingDisplayed = toBingoCard()
+            uiToBingoCard()
             val newCard = BingoCard()
+            newCard.name = String.format("Cartela x%d", bingoDeck.bingoDeck.size)
             bingoDeck.addBingoCard(newCard)
-            newCard.name = String.format("Cartela %d", bingoDeck.bingoDeck.size)
-            bingoCardbeingDisplayed = newCard
-            fromBingoCard(newCard)
+            bingoCardBeingDisplayed = newCard
+            for(i in 0 until bingoDeck.bingoDeck.size){
+                if(bingoDeck.bingoDeck[i] == bingoCardBeingDisplayed){
+                    bingoDeckDisplayedIndex = i
+                    break
+                }
+            }
+            bingoCardToUi(newCard)
+            updateUiButtons()
         }
-//
-//        button_save.setOnClickListener {
-//            //            saveDataToDisk()
-//        }
-//
-//        button_save_and_add.setOnClickListener {
-//            //            loadDataFromDisk()
-//        }
+
+        button_back.setOnClickListener {
+            if (bingoDeckDisplayedIndex > 0) {
+                changeCardHelper(-1)
+            }
+        }
+
+        button_next.setOnClickListener {
+            if (bingoDeckDisplayedIndex < (bingoDeck.bingoDeck.size - 1)) {
+                changeCardHelper(1)
+            }
+        }
+
+        button_play.setOnClickListener {
+            val myIntent = Intent(this, PlayGameActivity::class.java)
+            startActivity(myIntent)
+        }
+
+    }
+
+    private fun changeCardHelper(delta: Int) {
+        uiToBingoCard()
+        bingoDeckDisplayedIndex += delta
+        bingoCardBeingDisplayed = bingoDeck.bingoDeck[bingoDeckDisplayedIndex]
+        bingoCardToUi(bingoCardBeingDisplayed)
+        updateUiButtons()
+    }
+
+    private fun updateUiButtons() {
+        button_back.isEnabled = bingoDeckDisplayedIndex != 0
+        button_next.isEnabled = bingoDeckDisplayedIndex != (bingoDeck.bingoDeck.size -1)
     }
 
     private fun loadDataFromDisk() {
+        bingoDeckDisplayedIndex=0
         bingoDeck = loadDataFromDiskHelper()
         if (bingoDeck.bingoDeck.isEmpty()) {
-            bingoCardbeingDisplayed = BingoCard()
-            bingoCardbeingDisplayed.name = "Cartela 1"
-            bingoDeck.addBingoCard(bingoCardbeingDisplayed)
+            bingoCardBeingDisplayed = BingoCard()
+            bingoCardBeingDisplayed.name = "Cartela 1"
+            bingoDeck.addBingoCard(bingoCardBeingDisplayed)
         } else {
-            bingoCardbeingDisplayed = bingoDeck.bingoDeck[0]
+            bingoCardBeingDisplayed = bingoDeck.bingoDeck[bingoDeckDisplayedIndex]
         }
-        fromBingoCard(bingoCardbeingDisplayed)
-
+        bingoCardToUi(bingoCardBeingDisplayed)
+        updateUiButtons()
     }
 
     override fun onPause() {
@@ -88,7 +123,7 @@ class Main2Activity : AppCompatActivity() {
 
     private fun log(msg: String) {
         Log.d(this.localClassName, msg)
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+       // Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun loadDataFromDiskHelper(): BingoDeck {
@@ -106,7 +141,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun saveDataToDisk() {
-        bingoCardbeingDisplayed = toBingoCard()
+        bingoCardBeingDisplayed = uiToBingoCard()
         val fileOutputStream = openFileOutput(FILENAME, Context.MODE_PRIVATE)
         val objectOutputStream = ObjectOutputStream(fileOutputStream)
         objectOutputStream.writeObject(bingoDeck)
@@ -115,7 +150,7 @@ class Main2Activity : AppCompatActivity() {
         log("Data Saved")
     }
 
-    private fun fromBingoCard(bingoCard: BingoCard) {
+    private fun bingoCardToUi(bingoCard: BingoCard) {
         card_title.setText(bingoCard.name)
         for (row in 0 until numberMatrix.size) {
             for (column in 0 until numberMatrix.size) {
@@ -132,22 +167,22 @@ class Main2Activity : AppCompatActivity() {
                 }
             }
         }
-        text_view_status.text = String.format("Cartela %d de %d", 1, bingoDeck.bingoDeck.size)
+        text_view_status.text = String.format("Cartela %d de %d", bingoDeckDisplayedIndex + 1, bingoDeck.bingoDeck.size)
     }
 
-    private fun toBingoCard(): BingoCard {
-        bingoCardbeingDisplayed.name = card_title.text.toString()
+    private fun uiToBingoCard(): BingoCard {
+        bingoCardBeingDisplayed.name = card_title.text.toString()
 
         for (row in 0 until numberMatrix.size) {
             for (column in 0 until numberMatrix.size) {
                 try {
-                    bingoCardbeingDisplayed.content[row][column] = numberMatrix[row][column].text.toString().toInt()
+                    bingoCardBeingDisplayed.content[row][column] = numberMatrix[row][column].text.toString().toInt()
                 } catch(nfe: NumberFormatException) {
-                    bingoCardbeingDisplayed.content[row][column] = -1
+                    bingoCardBeingDisplayed.content[row][column] = -1
                 }
             }
         }
-        return bingoCardbeingDisplayed
+        return bingoCardBeingDisplayed
     }
 
     private fun initializeCollections() {
@@ -180,7 +215,7 @@ class Main2Activity : AppCompatActivity() {
                                         // there is some data here
                                         return false // so we move to the next square
                                     } else {
-                                        Toast.makeText(this@Main2Activity, "Square is still empty", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@EditCardsActivity, "Square is still empty", Toast.LENGTH_SHORT).show()
                                         return true   // so we stay in this square
                                     }
                                 }

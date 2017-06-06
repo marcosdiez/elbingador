@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:id="@+id/linearLayout"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Números já sorteados"/>
+
+    <TextView
+        android:id="@+id/displayed_numbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:text="10\n20\n30\n40"
+        />
+    <LinearLayout android:id="@+id/linearLayout2"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  xmlns:tools="http://schemas.android.com/tools">
+
+        <Button
+            android:id="@+id/button_remove_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Remover"/>
+
+        <EditText
+            android:id="@+id/editText_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberDecimal"/>
+
+        <Button
+            android:id="@+id/button_add_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Adicionar"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:text="[Results]"
+        />
+</LinearLayout>

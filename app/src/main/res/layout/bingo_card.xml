@@ -16,7 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/back"/>
+            android:enabled="false"
+            android:text="@string/back"
+            />
 
         <EditText
             android:id="@+id/card_title"
@@ -24,10 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
+            android:hint="Nome ou Número da Cartela"
             android:inputType="textPersonName"
             android:nextFocusDown="@+id/number00"
             android:text="Bingo Card Name"
-            android:hint="Nome ou Número da Cartela"
             android:textAlignment="center"/>
 
         <Button
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:enabled="false"
             android:text="@string/next"/>
     </LinearLayout>
 
@@ -425,7 +428,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Apagar Tudo"/>
+            android:text="Limpar Cartela"/>
 
         <Button
             android:id="@+id/button_new"
@@ -434,13 +437,13 @@
             android:layout_weight="1"
             android:text="Nova Cartela"/>
 
+        <Button
+            android:id="@+id/button_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Jogar"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/button_save_and_add"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Save And Add"/>-->
 
     </LinearLayout>
 
