@@ -17,14 +17,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Último Número:"/>
+            android:text="@string/ltimo_n_mero"/>
 
         <TextView
             android:id="@+id/last_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
             android:layout_marginRight="@dimen/fab_margin"
+            android:textAlignment="textEnd"
+            tools:ignore="RtlHardcoded"
             tools:text="42"/>
 
 
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:duplicateParentState="true"
-        android:text="Mostrar Apenas Cartelas Com Vitórias"/>
+        android:text="@string/mostrar_apenas_cartelas_com_vit_rias"/>
 
     <LinearLayout android:id="@+id/linearLayout2"
                   xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Remover"/>
+            android:text="@string/remover"/>
 
         <EditText
             android:id="@+id/editText_number"
@@ -59,14 +60,15 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:maxLength="2"/>
+            android:maxLength="2"
+            tools:ignore="LabelFor"/>
 
         <Button
             android:id="@+id/button_add_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Adicionar"/>
+            android:text="@string/adicionar"/>
     </LinearLayout>
 
     <ScrollView

@@ -3,7 +3,7 @@ package com.marcosdiez.elbingador
 /**
  * Created by Marcos on 2017-05-30.
  */
-class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
+class BingoCard : java.io.Serializable, Comparable<BingoCard> {
     val size = 5
     var name = "Anonymous"
     val content = array2dOfInt(size, size)
@@ -17,6 +17,7 @@ class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
             }
         }
     }
+
 
     fun hit(number: Int) : Int{
         var localHits = 0
@@ -133,16 +134,16 @@ class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
         output.appendln("-----------------------")
         output.appendln(name)
         if(hasWinningRow()){
-            output.appendln("Bingo na LINHA!!!")
+            output.appendln("Cinquina na Linha!!!")
         }
         if(hasWinningColumn()){
-            output.appendln("Bingo na Coluna !!!")
+            output.appendln("Cinquina na Coluna !!!")
         }
         if(hasWinningFirstDiagonal()){
-            output.appendln("Bingo na primeira diagonal!!!")
+            output.appendln("Cinquina na primeira diagonal!!!")
         }
         if(hasWinningSecondDiagonal()){
-            output.appendln("Bingo na segunda diagonal!!!")
+            output.appendln("Cinquina na segunda diagonal!!!")
         }
         if(hasWinningFullCard()){
             output.appendln("Bingo na cartela completa!!!")
@@ -159,8 +160,8 @@ class BingoCard constructor() : java.io.Serializable , Comparable<BingoCard> {
         return output.toString()
     }
 
-    override fun compareTo(compareBingoCard : BingoCard) : Int {
-        return this.name.compareTo(compareBingoCard.name)
+    override fun compareTo(other: BingoCard): Int {
+        return this.name.compareTo(other.name)
     }
 
     private inline fun <reified INNER> array2d(sizeOuter: Int, sizeInner: Int, noinline innerInit: (Int)->INNER): Array<Array<INNER>>

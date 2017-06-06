@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -93,12 +94,8 @@ class EditCardsActivity : BingadorBasicActivity() {
             })
 
             alert.setNegativeButton("Não", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
-
             alert.show()
-
         }
-
-
     }
 
     private fun changeCardHelper(delta: Int) {
@@ -115,7 +112,7 @@ class EditCardsActivity : BingadorBasicActivity() {
         button_next.isEnabled = bingoDeckDisplayedIndex != (bingoDeck.bingoDeck.size - 1)
     }
 
-    private fun makeBingoCardName(n: Int) : String {
+    private fun makeBingoCardName(n: Int): String {
         return String.format("Cartela x%03d", n)
     }
 
@@ -183,42 +180,85 @@ class EditCardsActivity : BingadorBasicActivity() {
 
     private fun initializeCollections() {
         numberSet = setOf(
-            number00, number01, number02, number03, number04,
-            number10, number11, number12, number13, number14,
-            number20, number21, number22, number23, number24,
-            number30, number31, number32, number33, number34,
-            number40, number41, number42, number43, number44)
+                number00, number01, number02, number03, number04,
+                number10, number11, number12, number13, number14,
+                number20, number21, number22, number23, number24,
+                number30, number31, number32, number33, number34,
+                number40, number41, number42, number43, number44)
 
         numberMatrix = ArrayList<ArrayList<EditText>>(
-            setOf(
-                ArrayList<EditText>(setOf(number00, number01, number02, number03, number04)),
-                ArrayList<EditText>(setOf(number10, number11, number12, number13, number14)),
-                ArrayList<EditText>(setOf(number20, number21, number22, number23, number24)),
-                ArrayList<EditText>(setOf(number30, number31, number32, number33, number34)),
-                ArrayList<EditText>(setOf(number40, number41, number42, number43, number44))
-            )
+                setOf(
+                        ArrayList<EditText>(setOf(number00, number01, number02, number03, number04)),
+                        ArrayList<EditText>(setOf(number10, number11, number12, number13, number14)),
+                        ArrayList<EditText>(setOf(number20, number21, number22, number23, number24)),
+                        ArrayList<EditText>(setOf(number30, number31, number32, number33, number34)),
+                        ArrayList<EditText>(setOf(number40, number41, number42, number43, number44))
+                )
         )
     }
 
     private fun fixKeyboardNextButton(numberSet: Set<EditText>) {
         for (aNumber in numberSet) {
+
+            aNumber.setOnKeyListener(
+                    object : View.OnKeyListener {
+                        override fun onKey(view: View?, keyCode: Int, keyEvent: KeyEvent?): Boolean {
+                            if (
+                            (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
+                                    && keyEvent != null
+                                    && keyEvent.action == KeyEvent.ACTION_UP
+                                    ) {
+//                            Toast.makeText(this@EditCardsActivity, "keyCode: [" + keyCode + "] keyEvent: [" + keyEvent + "]", Toast.LENGTH_SHORT).show()
+                                if (view is TextView) {
+                                    val textView = view
+                                    if (textView.text.isNotEmpty()) {
+                                        // there is some data here
+                                        textView.onEditorAction(EditorInfo.IME_ACTION_NEXT)
+                                    } else {
+                                        Toast.makeText(this@EditCardsActivity, "O quadrado ainda está vazio!", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                return true
+                            }
+                            return false
+                        }
+                    }
+            )
+
+//            aNumber.setOnFocusChangeListener(
+//                    object : View.OnFocusChangeListener {
+//                        override fun onFocusChange(view: View?, hasFocus: Boolean) {
+//                            if(hasFocus){
+//                                return
+//                            }
+//                            if (view is TextView) {
+//                                view.id
+//
+//
+//
+//                            }
+//                        }
+//                    }
+//            )
+
             aNumber.setOnEditorActionListener(
-                object : TextView.OnEditorActionListener {
-                    override fun onEditorAction(textView: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
-                        if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                            if (textView != null) {
-                                if (textView.text.isNotEmpty()) {
-                                    // there is some data here
-                                    return false // so we move to the next square
-                                } else {
-                                    Toast.makeText(this@EditCardsActivity, "Square is still empty", Toast.LENGTH_SHORT).show()
-                                    return true   // so we stay in this square
+                    object : TextView.OnEditorActionListener {
+                        override fun onEditorAction(textView: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
+//                        Toast.makeText(this@EditCardsActivity, "actionId: [" + actionId + "] keyEvent: [" + keyEvent + "]", Toast.LENGTH_SHORT).show()
+                            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                                if (textView != null) {
+                                    if (textView.text.isNotEmpty()) {
+                                        // there is some data here
+                                        return false // so we move to the next square
+                                    } else {
+                                        Toast.makeText(this@EditCardsActivity, "O quadrado ainda está vazio!", Toast.LENGTH_SHORT).show()
+                                        return true   // so we stay in this square
+                                    }
                                 }
                             }
+                            return false
                         }
-                        return false
                     }
-                }
             )
         }
     }

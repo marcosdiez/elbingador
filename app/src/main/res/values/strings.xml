@@ -14,4 +14,10 @@
     <string name="nova_cartela">Nova Cartela</string>
     <string name="o">O</string>
     <string name="random">Preencher Aleatório</string>
+    <string name="apagar_tudo">Apagar Tudo</string>
+    <string name="sem_n_meros_repetidos_e_com_intervalos_por_letra_b_1_a_15_i_16_a_30_n_31_a_45_g_46_a_60_o_61_a_75">Sem números repetidos e com intervalos por letra (B: 1 a 15, I: 16 a 30, N: 31 a 45, G: 46 a 60, O: 61 a 75)</string>
+    <string name="mostrar_apenas_cartelas_com_vit_rias">Mostrar Apenas Cartelas Com Vitórias</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="remover">Remover</string>
+    <string name="ltimo_n_mero">Último Número:</string>
 </resources>

@@ -119,7 +119,8 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number01"
+                android:nextFocusDown="@+id/number10"
+                android:nextFocusForward="@+id/number10"
                 android:textAlignment="center"
                 tools:ignore="LabelFor"/>
 
@@ -130,9 +131,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number02"
+                android:nextFocusDown="@+id/number11"
+                android:nextFocusForward="@+id/number11"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number02"
@@ -141,9 +143,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number03"
+                android:nextFocusDown="@+id/number12"
+                android:nextFocusForward="@+id/number12"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number03"
@@ -152,9 +155,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number04"
+                android:nextFocusDown="@+id/number13"
+                android:nextFocusForward="@+id/number13"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number04"
@@ -163,9 +167,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number10"
+                android:nextFocusDown="@+id/number14"
+                android:nextFocusForward="@+id/number14"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
 
         </TableRow>
@@ -182,9 +187,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number11"
+                android:nextFocusDown="@+id/number20"
+                android:nextFocusForward="@+id/number20"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number11"
@@ -193,9 +199,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number12"
+                android:nextFocusDown="@+id/number21"
+                android:nextFocusForward="@+id/number21"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number12"
@@ -204,9 +211,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number13"
+                android:nextFocusDown="@+id/number22"
+                android:nextFocusForward="@+id/number22"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number13"
@@ -215,9 +223,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number14"
+                android:nextFocusDown="@+id/number23"
+                android:nextFocusForward="@+id/number23"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number14"
@@ -226,9 +235,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number20"
+                android:nextFocusDown="@+id/number24"
+                android:nextFocusForward="@+id/number24"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
         </TableRow>
 
@@ -244,9 +254,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number21"
+                android:nextFocusDown="@+id/number30"
+                android:nextFocusForward="@+id/number30"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number21"
@@ -255,9 +266,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number22"
+                android:nextFocusDown="@+id/number31"
+                android:nextFocusForward="@+id/number31"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number22"
@@ -266,9 +278,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number23"
+                android:nextFocusDown="@+id/number32"
+                android:nextFocusForward="@+id/number32"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number23"
@@ -277,9 +290,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number24"
+                android:nextFocusDown="@+id/number33"
+                android:nextFocusForward="@+id/number33"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number24"
@@ -288,9 +302,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number30"
+                android:nextFocusDown="@+id/number34"
+                android:nextFocusForward="@+id/number34"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
         </TableRow>
 
@@ -306,9 +321,11 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number31"
+                android:nextFocusDown="@+id/number40"
+                android:nextFocusForward="@+id/number40"
                 android:textAlignment="center"
-                />
+
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number31"
@@ -317,9 +334,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number32"
+                android:nextFocusDown="@+id/number41"
+                android:nextFocusForward="@+id/number41"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number32"
@@ -328,9 +346,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number33"
+                android:nextFocusDown="@+id/number42"
+                android:nextFocusForward="@+id/number42"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number33"
@@ -339,9 +358,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number34"
+                android:nextFocusDown="@+id/number43"
+                android:nextFocusForward="@+id/number43"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number34"
@@ -350,9 +370,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number40"
+                android:nextFocusDown="@+id/number44"
+                android:nextFocusForward="@+id/number44"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
         </TableRow>
 
@@ -368,9 +389,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number41"
+                android:nextFocusDown="@+id/number01"
+                android:nextFocusForward="@+id/number01"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number41"
@@ -379,9 +401,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number42"
+                android:nextFocusDown="@+id/number02"
+                android:nextFocusForward="@+id/number02"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number42"
@@ -390,9 +413,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number43"
+                android:nextFocusDown="@+id/number03"
+                android:nextFocusForward="@+id/number03"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number43"
@@ -401,9 +425,10 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:maxLength="2"
-                android:nextFocusDown="@+id/number44"
+                android:nextFocusDown="@+id/number04"
+                android:nextFocusForward="@+id/number04"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/number44"
@@ -413,7 +438,7 @@
                 android:inputType="number"
                 android:maxLength="2"
                 android:textAlignment="center"
-                />
+                tools:ignore="LabelFor"/>
 
         </TableRow>
 
@@ -431,7 +456,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/nova_cartela"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle"/>
 
         <Button
             android:id="@+id/button_fill_random"
@@ -439,7 +465,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:elevation="0dp"
             android:text="@string/random"
             android:textAllCaps="false"/>
 
@@ -465,17 +490,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/limpar_cartela"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle"/>
 
         <Button
             android:id="@+id/button_erase_all_cards"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Apagar Tudo"
-            android:textAllCaps="false"/>
+            android:text="@string/apagar_tudo"
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle"/>
 
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_modo_bebedouro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:duplicateParentState="true"
+        android:text="@string/sem_n_meros_repetidos_e_com_intervalos_por_letra_b_1_a_15_i_16_a_30_n_31_a_45_g_46_a_60_o_61_a_75"/>
 
     <TextView
         android:id="@+id/text_view_status"
