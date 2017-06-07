@@ -15,12 +15,20 @@ import com.marcosdiez.elbingador.BingoCard
 import com.marcosdiez.elbingador.BingoDeck
 import com.marcosdiez.elbingador.R
 import kotlinx.android.synthetic.main.bingo_card.*
+import java.util.HashMap
+import kotlin.collections.ArrayList
+
+
+data class BingoRestriction(val neighbours: Set<EditText>, val min: Int = 0, val max: Int = 99)
 
 
 class EditCardsActivity : BingadorBasicActivity() {
 
     private lateinit var numberSet: Set<EditText>
     private lateinit var numberMatrix: ArrayList<ArrayList<EditText>>
+    private val numberRowRules = HashMap<EditText, BingoRestriction>()
+    private val previousCell = HashMap<EditText, EditText>()
+
 
     private lateinit var bingoCardBeingDisplayed: BingoCard
     private var bingoDeckDisplayedIndex = 0
@@ -195,6 +203,72 @@ class EditCardsActivity : BingadorBasicActivity() {
                         ArrayList<EditText>(setOf(number40, number41, number42, number43, number44))
                 )
         )
+
+        val b = BingoRestriction(setOf(number00, number10, number20, number30, number40), 1, 15)
+        numberRowRules[number00] = b
+        numberRowRules[number10] = b
+        numberRowRules[number20] = b
+        numberRowRules[number30] = b
+        numberRowRules[number40] = b
+
+        val i = BingoRestriction(setOf(number01, number11, number21, number31, number41), 16, 30)
+        numberRowRules[number01] = i
+        numberRowRules[number11] = i
+        numberRowRules[number21] = i
+        numberRowRules[number31] = i
+        numberRowRules[number41] = i
+
+        val n = BingoRestriction(setOf(number02, number12, number22, number32, number42), 31, 45)
+        numberRowRules[number02] = n
+        numberRowRules[number12] = n
+        numberRowRules[number22] = n
+        numberRowRules[number32] = n
+        numberRowRules[number42] = n
+
+        val g = BingoRestriction(setOf(number03, number13, number23, number33, number43), 46, 60)
+        numberRowRules[number03] = g
+        numberRowRules[number13] = g
+        numberRowRules[number23] = g
+        numberRowRules[number33] = g
+        numberRowRules[number43] = g
+
+        val o = BingoRestriction(setOf(number04, number14, number24, number34, number44), 61, 75)
+        numberRowRules[number04] = o
+        numberRowRules[number14] = o
+        numberRowRules[number24] = o
+        numberRowRules[number34] = o
+        numberRowRules[number44] = o
+
+
+        previousCell[number00] = number00
+        previousCell[number10] = number00
+        previousCell[number20] = number10
+        previousCell[number30] = number20
+        previousCell[number40] = number30
+
+        previousCell[number01] = number40
+        previousCell[number11] = number01
+        previousCell[number21] = number11
+        previousCell[number31] = number21
+        previousCell[number41] = number31
+
+        previousCell[number02] = number41
+        previousCell[number12] = number02
+        previousCell[number22] = number12
+        previousCell[number32] = number22
+        previousCell[number42] = number32
+
+        previousCell[number03] = number42
+        previousCell[number13] = number03
+        previousCell[number23] = number13
+        previousCell[number33] = number23
+        previousCell[number43] = number33
+
+        previousCell[number04] = number43
+        previousCell[number14] = number04
+        previousCell[number24] = number14
+        previousCell[number34] = number24
+        previousCell[number44] = number43
     }
 
     private fun fixKeyboardNextButton(numberSet: Set<EditText>) {
@@ -203,43 +277,55 @@ class EditCardsActivity : BingadorBasicActivity() {
             aNumber.setOnKeyListener(
                     object : View.OnKeyListener {
                         override fun onKey(view: View?, keyCode: Int, keyEvent: KeyEvent?): Boolean {
-                            if (
-                            (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
-                                    && keyEvent != null
-                                    && keyEvent.action == KeyEvent.ACTION_UP
-                                    ) {
+                            if (keyEvent != null && keyEvent.action == KeyEvent.ACTION_UP) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
 //                            Toast.makeText(this@EditCardsActivity, "keyCode: [" + keyCode + "] keyEvent: [" + keyEvent + "]", Toast.LENGTH_SHORT).show()
-                                if (view is TextView) {
-                                    val textView = view
-                                    if (textView.text.isNotEmpty()) {
-                                        // there is some data here
-                                        textView.onEditorAction(EditorInfo.IME_ACTION_NEXT)
-                                    } else {
-                                        Toast.makeText(this@EditCardsActivity, "O quadrado ainda está vazio!", Toast.LENGTH_SHORT).show()
+                                    if (view is TextView) {
+                                        val textView = view
+                                        if (textView.text.isNotEmpty()) {
+                                            // there is some data here
+                                            textView.onEditorAction(EditorInfo.IME_ACTION_NEXT)
+                                        } else {
+                                            Toast.makeText(this@EditCardsActivity, "O quadrado ainda está vazio!", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                    return true
+                                }
+                                if (keyCode in setOf(
+                                        KeyEvent.KEYCODE_PLUS,
+                                        KeyEvent.KEYCODE_NUMPAD_ADD,
+                                        KeyEvent.KEYCODE_NUMPAD_COMMA,
+                                        KeyEvent.KEYCODE_NUMPAD_DOT,
+                                        KeyEvent.KEYCODE_NUMPAD_SUBTRACT,
+                                        KeyEvent.KEYCODE_MINUS,
+                                        KeyEvent.KEYCODE_COMMA,
+                                        KeyEvent.KEYCODE_PERIOD
+                                        )){
+                                    System.out.println("KEYCODE IS PLUS or similar")
+                                    if(view in previousCell){
+                                        System.out.println("requesting focus")
+                                        previousCell[view]!!.requestFocus()
                                     }
                                 }
                                 return true
                             }
                             return false
                         }
-                    }
-            )
+                    })
 
-//            aNumber.setOnFocusChangeListener(
-//                    object : View.OnFocusChangeListener {
-//                        override fun onFocusChange(view: View?, hasFocus: Boolean) {
-//                            if(hasFocus){
-//                                return
-//                            }
-//                            if (view is TextView) {
-//                                view.id
-//
-//
-//
-//                            }
-//                        }
+//            aNumber.onFocusChangeListener = object : View.OnFocusChangeListener {
+//                override fun onFocusChange(view: View?, hasFocus: Boolean) {
+//                    if (hasFocus) {
+//                        return
 //                    }
-//            )
+//                    if (!checkbox_modo_bebedouro.isChecked) {
+//                        return
+//                    }
+//                    if (view is TextView) {
+//                        verifyDataConsistency(view)
+//                    }
+//                }
+//            }
 
             aNumber.setOnEditorActionListener(
                     object : TextView.OnEditorActionListener {
@@ -248,6 +334,14 @@ class EditCardsActivity : BingadorBasicActivity() {
                             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                                 if (textView != null) {
                                     if (textView.text.isNotEmpty()) {
+                                        if(checkbox_modo_bebedouro.isChecked){
+                                            val isConsistent = verifyDataConsistency(textView)
+                                            if(!isConsistent){
+                                                textView.text = ""
+                                                return true
+                                            }
+                                            return false
+                                        }
                                         // there is some data here
                                         return false // so we move to the next square
                                     } else {
@@ -262,6 +356,46 @@ class EditCardsActivity : BingadorBasicActivity() {
             )
         }
     }
+
+    private fun verifyDataConsistency(textView: TextView) : Boolean {
+        val neighbours = numberRowRules[textView]
+        if (neighbours == null) {
+            return true
+        }
+        val textFromThisView = textView.text.toString()
+        if (textFromThisView.isEmpty()) {
+            return true
+        }
+
+        try {
+            val intValue = Integer.parseInt(textFromThisView)
+            if (textView == number22 && intValue == 0) {   // zero is accepted in the middle row
+                return true
+            }
+            if (intValue > neighbours.max) {
+                Toast.makeText(this@EditCardsActivity, "Erro: O número [" + textView.text + "] é maior que [" + neighbours.max + "]", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            if (intValue < neighbours.min) {
+                Toast.makeText(this@EditCardsActivity, "Erro: O número [" + textView.text + "] é menor que [" + neighbours.min + "]", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            for (neighbour in neighbours.neighbours) {
+                if (neighbour == textView) {
+                    continue
+                }
+                if (textFromThisView == neighbour.text.toString()) {
+                    Toast.makeText(this@EditCardsActivity, "Erro: número repetido: [" + textFromThisView + "]", Toast.LENGTH_SHORT).show()
+                    return false
+                    break
+                }
+            }
+        } catch(nfe: NumberFormatException) {
+
+        }
+        return true
+    }
+
 }
 
 

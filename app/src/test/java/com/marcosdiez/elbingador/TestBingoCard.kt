@@ -52,13 +52,6 @@ class TestBingoCard {
             bingoCard.content[4][3] = 86
             bingoCard.content[4][4] = 58
 
-//        for (row in 0 until bingoCard.size) {
-//            for (column in 0 until bingoCard.size) {
-//                val n = (Math.abs(generator.nextInt()) % 99) + 1
-//                System.out.println(String.format("bingoCard.content[%d][%d] = %d", row, column , n))
-//                bingoCard.content[row][column] = n
-//            }
-//        }
             return bingoCard
         }
 
