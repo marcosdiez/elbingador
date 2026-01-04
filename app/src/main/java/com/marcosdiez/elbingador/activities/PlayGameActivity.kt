@@ -9,25 +9,27 @@ import android.widget.TextView
 import android.widget.Toast
 import com.marcosdiez.elbingador.BingoDeck
 import com.marcosdiez.elbingador.R
-import kotlinx.android.synthetic.main.bingo_card.*
-import kotlinx.android.synthetic.main.play_game.*
+import com.marcosdiez.elbingador.databinding.PlayGameBinding
 
 
 class PlayGameActivity : BingadorBasicActivity() {
 
+    private lateinit var binding: PlayGameBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.play_game)
+        binding = PlayGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        button_add_number.setOnClickListener {
+        binding.buttonAddNumber.setOnClickListener {
             clickHelper(true)
         }
 
-        button_remove_number.setOnClickListener {
+        binding.buttonRemoveNumber.setOnClickListener {
             clickHelper(false)
         }
 
-        editText_number.setOnEditorActionListener(
+        binding.editTextNumber.setOnEditorActionListener(
             object : TextView.OnEditorActionListener {
                 override fun onEditorAction(textView: TextView?, actionId: Int, keyEvent: KeyEvent?): Boolean {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -45,9 +47,9 @@ class PlayGameActivity : BingadorBasicActivity() {
                 }
             }
         )
-        editText_number.requestFocus()
+        binding.editTextNumber.requestFocus()
 
-        checkbox_show_only_winning_bingocards.setOnCheckedChangeListener { _, _ -> updateUi() }
+        binding.checkboxShowOnlyWinningBingocards.setOnCheckedChangeListener { _, _ -> updateUi() }
     }
 
     override fun onResume() {
@@ -55,14 +57,14 @@ class PlayGameActivity : BingadorBasicActivity() {
         updateUi()
     }
 
-    fun clickHelper(hit: Boolean) {
-        if (editText_number.text.isEmpty()) {
+    private fun clickHelper(hit: Boolean) {
+        if (binding.editTextNumber.text.isEmpty()) {
             return
         }
 
-        val text = editText_number.text.toString().replace(".","").replace(",","")
+        val text = binding.editTextNumber.text.toString().replace(".","").replace(",","")
 
-        last_number.text = text
+        binding.lastNumber.text = text
 
         try {
             val number = Integer.parseInt(text)
@@ -71,18 +73,18 @@ class PlayGameActivity : BingadorBasicActivity() {
             } else {
                 bingoDeck.unhit(number)
             }
-            editText_number.setText("")
+            binding.editTextNumber.setText("")
             updateUi()
         }catch(e : NumberFormatException){
             Toast.makeText(this, String.format("[%s] não é um número válido", text), Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun updateUi() {
-        if(checkbox_show_only_winning_bingocards.isChecked){
-            results.text = bingoDeck.winningCardsToString()
+    private fun updateUi() {
+        if(binding.checkboxShowOnlyWinningBingocards.isChecked){
+            binding.results.text = bingoDeck.winningCardsToString()
         }   else {
-            results.text = bingoDeck.toString()
+            binding.results.text = bingoDeck.toString()
         }
     }
 }

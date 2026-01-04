@@ -131,22 +131,22 @@ class BingoCard : java.io.Serializable, Comparable<BingoCard> {
 
         val formaHit = "[%2d] "
         val formaNotHit = " %2d  "
-        output.appendln("-----------------------")
-        output.appendln(name)
+        output.appendLine("-----------------------")
+        output.appendLine(name)
         if(hasWinningRow()){
-            output.appendln("Cinquina na Linha!!!")
+            output.appendLine("Cinquina na Linha!!!")
         }
         if(hasWinningColumn()){
-            output.appendln("Cinquina na Coluna !!!")
+            output.appendLine("Cinquina na Coluna !!!")
         }
         if(hasWinningFirstDiagonal()){
-            output.appendln("Cinquina na primeira diagonal!!!")
+            output.appendLine("Cinquina na primeira diagonal!!!")
         }
         if(hasWinningSecondDiagonal()){
-            output.appendln("Cinquina na segunda diagonal!!!")
+            output.appendLine("Cinquina na segunda diagonal!!!")
         }
         if(hasWinningFullCard()){
-            output.appendln("Bingo na cartela completa!!!")
+            output.appendLine("Bingo na cartela completa!!!")
         }
 
         for(row in 0 until size){
@@ -154,9 +154,9 @@ class BingoCard : java.io.Serializable, Comparable<BingoCard> {
                 val forma = if (hits[row][column]) formaHit else formaNotHit
                 output.append(String.format(forma, content[row][column]))
             }
-            output.appendln()
+            output.appendLine()
         }
-        output.appendln("=======================")
+        output.appendLine("=======================")
         return output.toString()
     }
 

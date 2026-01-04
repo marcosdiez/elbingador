@@ -94,33 +94,33 @@ class BingoDeck : java.io.Serializable {
 
     override fun toString() : String {
         val output = StringBuilder(500 * bingoDeck.size)
-        output.appendln(String.format("Total: %d cartelas", bingoDeck.size))
-        output.appendln(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
+        output.appendLine(String.format("Total: %d cartelas", bingoDeck.size))
+        output.appendLine(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
         output.append("Números de todas as minhas cartelas: ")
-        output.appendln(getNumbersFromMyBingoCards().toSortedSet())
+        output.appendLine(getNumbersFromMyBingoCards().toSortedSet())
         output.append("Números já sorteados:" )
-        output.appendln(numbers.toString())
-        output.appendln()
+        output.appendLine(numbers.toString())
+        output.appendLine()
         for(bingoCard in bingoDeck){
-            output.appendln(bingoCard)
+            output.appendLine(bingoCard)
         }
-        output.appendln("-- FIM --")
+        output.appendLine("-- FIM --")
         return output.toString()
     }
 
     fun winningCardsToString() : String {
         val output = StringBuilder(500 * bingoDeck.size)
-        output.appendln(String.format("Total: %d cartelas", bingoDeck.size))
-        output.appendln(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
+        output.appendLine(String.format("Total: %d cartelas", bingoDeck.size))
+        output.appendLine(String.format("Total: %d cartelas vencedoras", winningBingoDeck.size))
         output.append("Números já sorteados:" )
-        output.appendln(numbers.toString())
-        output.appendln()
+        output.appendLine(numbers.toString())
+        output.appendLine()
         for(bingoCard in bingoDeck){
             if(bingoCard.hasWinningAnything()){
-                output.appendln(bingoCard)
+                output.appendLine(bingoCard)
             }
         }
-        output.appendln("-- FIM --")
+        output.appendLine("-- FIM --")
         return output.toString()
     }
 
