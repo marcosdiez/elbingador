@@ -1,0 +1,12 @@
+Privacy Policy
+
+This app does not collect any data.
+It does not send any data anywhere.
+
+It only saves the data you input locally on your phone. Nowhere else.
+
+It is open source and you can download, inspect and modify the source code at your will.
+
+Marcos Diez
+marcos AT unitron DOT com DOT br
+2026-01-05
