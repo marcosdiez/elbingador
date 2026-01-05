@@ -22,3 +22,12 @@ Why
 ---
 
 I had to learn Kotlin. 
+
+
+About
+------
+
+This app is free and open source. You can download the source code at https://github.com/marcosdiez/elbingador
+
+
+Google Play URL: https://play.google.com/store/apps/details?id=com.marcosdiez.elbingador
